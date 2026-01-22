@@ -11,7 +11,7 @@ Check out the `test/` directory for examples.
     └─ from /tmp/some/path/to/a/file.txt:6:9
 
     5 |  Hello World
-    6 |  testing ←—
+    6 |  testing <——
 
  >>> This is an example error body
 ```

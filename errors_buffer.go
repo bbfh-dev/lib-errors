@@ -38,7 +38,7 @@ func (buffer Buffer) Print(writer io.Writer) {
 	writer.Write([]byte(libescapes.TextColorBrightRed))
 
 	if len(buffer.Highlighted) == 0 {
-		writer.Write([]byte("←—"))
+		writer.Write([]byte("<——"))
 	} else {
 		i := uint(0)
 		contents := strings.TrimSuffix(buffer.Highlighted, "\n")
