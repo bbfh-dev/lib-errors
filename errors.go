@@ -18,6 +18,7 @@ const (
 	ERR_FORMAT   = "Formatting Error"
 	ERR_VALIDATE = "Validation Error"
 	ERR_EXECUTE  = "Execution Error"
+	ERR_CONVERT  = "Conversion Error"
 )
 
 type DetailedError struct {
