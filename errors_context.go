@@ -65,3 +65,7 @@ func (context FileContext) Print(writer io.Writer) {
 		context.Buffer.Print(writer)
 	}
 }
+
+func NewDirContext(path string) DirContext {
+	return DirContext{Path: path}
+}
