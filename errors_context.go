@@ -98,7 +98,7 @@ func (context ProgramContext) Print(writer io.Writer) {
 	}
 }
 
-func NewProgramContext(cmd exec.Cmd, stderr string) ProgramContext {
+func NewProgramContext(cmd *exec.Cmd, stderr string) ProgramContext {
 	return ProgramContext{
 		Binary: cmd.Path,
 		Args:   cmd.Args[1:],
