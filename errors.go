@@ -21,6 +21,7 @@ const (
 	ERR_CONVERT  = "Conversion Error"
 )
 
+// An improved pretty-printed detailed error with context
 type DetailedError struct {
 	Label   string
 	Context Context
