@@ -47,7 +47,7 @@ func (err *DetailedError) Error() string {
 }
 
 // Constructor for the most common error
-func NewIO(err error, path string) *DetailedError {
+func NewIO(err error, path string) error {
 	if err == nil {
 		return nil
 	}
