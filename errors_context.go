@@ -52,6 +52,10 @@ func (context DirContext) Print(writer io.Writer) {
 	item.PrintRoot(writer)
 }
 
+func NewDirContext(path string) DirContext {
+	return DirContext{Path: path}
+}
+
 type FileContext struct {
 	Trace  []TraceItem
 	Buffer Buffer
@@ -68,10 +72,6 @@ func (context FileContext) Print(writer io.Writer) {
 	if !context.Buffer.IsEmpty() {
 		context.Buffer.Print(writer)
 	}
-}
-
-func NewDirContext(path string) DirContext {
-	return DirContext{Path: path}
 }
 
 type ProgramContext struct {
