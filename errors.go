@@ -1,3 +1,4 @@
+// Detailed, pretty-printed colorful errors for Go
 package liberrors
 
 import (
