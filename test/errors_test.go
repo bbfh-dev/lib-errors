@@ -92,3 +92,16 @@ func TestFormatFileNoHighlighted(t *testing.T) {
 	}
 	derr.Print(t.Output())
 }
+
+func TestFormatProgram(t *testing.T) {
+	derr := &liberrors.DetailedError{
+		Label: liberrors.ERR_INTERNAL,
+		Context: liberrors.ProgramContext{
+			Binary: "/bin/ls",
+			Args:   []string{"-l", "/tmp"},
+			Stderr: "ls: /tmp: no such file or directory",
+		},
+		Details: "This is an example error body",
+	}
+	derr.Print(t.Output())
+}

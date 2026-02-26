@@ -3,6 +3,10 @@ package liberrors
 import (
 	"fmt"
 	"io"
+	"os/exec"
+	"strings"
+
+	libescapes "github.com/bbfh-dev/lib-ansi-escapes"
 )
 
 type Context interface {
@@ -68,4 +72,34 @@ func (context FileContext) Print(writer io.Writer) {
 
 func NewDirContext(path string) DirContext {
 	return DirContext{Path: path}
+}
+
+type ProgramContext struct {
+	Binary string
+	Args   []string
+	Stderr string
+}
+
+func (context ProgramContext) Print(writer io.Writer) {
+	writer.Write([]byte(libescapes.TextColorBrightGreen))
+	fmt.Fprintf(writer, "    $ %s %s", context.Binary, strings.Join(context.Args, " "))
+	writer.Write([]byte(libescapes.ColorReset + "\n"))
+
+	writer.Write([]byte(libescapes.TextColorWhite))
+	fmt.Fprint(writer, "╾─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─\n")
+
+	writer.Write([]byte(libescapes.TextColorBrightRed))
+	fmt.Fprintf(writer, "%s\n", context.Stderr)
+
+	writer.Write([]byte(libescapes.TextColorWhite))
+	fmt.Fprint(writer, "╾─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─")
+	writer.Write([]byte(libescapes.ColorReset))
+}
+
+func NewProgramContext(cmd exec.Cmd, stderr string) ProgramContext {
+	return ProgramContext{
+		Binary: cmd.Path,
+		Args:   cmd.Args[1:],
+		Stderr: stderr,
+	}
 }
