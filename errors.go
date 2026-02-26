@@ -57,3 +57,19 @@ func NewIO(err error, path string) *DetailedError {
 		Details: err.Error(),
 	}
 }
+
+// Prints DetailedError{} or generic error to writer
+//
+// Example usage:
+//
+//	libparsex.Print(err, os.Stderr)
+func Print(err error, writer io.Writer) {
+	switch err := err.(type) {
+	case *DetailedError:
+		err.Print(writer)
+	default:
+		io.WriteString(writer, err.Error())
+	}
+
+	io.WriteString(writer, "\n")
+}
