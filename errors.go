@@ -50,10 +50,8 @@ func NewIO(err error, path string) *DetailedError {
 		return nil
 	}
 	return &DetailedError{
-		Label: ERR_IO,
-		Context: DirContext{
-			Path: path,
-		},
+		Label:   ERR_IO,
+		Context: NewDirContext(path),
 		Details: err.Error(),
 	}
 }
