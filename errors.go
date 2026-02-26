@@ -46,6 +46,9 @@ func (err *DetailedError) Error() string {
 
 // Constructor for the most common error
 func NewIO(err error, path string) *DetailedError {
+	if err == nil {
+		return nil
+	}
 	return &DetailedError{
 		Label: ERR_IO,
 		Context: DirContext{
