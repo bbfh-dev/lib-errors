@@ -85,15 +85,17 @@ func (context ProgramContext) Print(writer io.Writer) {
 	fmt.Fprintf(writer, "    $ %s %s", context.Binary, strings.Join(context.Args, " "))
 	writer.Write([]byte(libescapes.ColorReset + "\n"))
 
-	writer.Write([]byte(libescapes.TextColorWhite))
-	fmt.Fprint(writer, "╾─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─\n")
+	if len(context.Stderr) != 0 {
+		writer.Write([]byte(libescapes.TextColorWhite))
+		fmt.Fprint(writer, "╾─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─\n")
 
-	writer.Write([]byte(libescapes.TextColorBrightRed))
-	fmt.Fprintf(writer, "%s\n", context.Stderr)
+		writer.Write([]byte(libescapes.TextColorBrightRed))
+		fmt.Fprintf(writer, "%s\n", context.Stderr)
 
-	writer.Write([]byte(libescapes.TextColorWhite))
-	fmt.Fprint(writer, "╾─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─")
-	writer.Write([]byte(libescapes.ColorReset))
+		writer.Write([]byte(libescapes.TextColorWhite))
+		fmt.Fprint(writer, "╾─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─")
+		writer.Write([]byte(libescapes.ColorReset))
+	}
 }
 
 func NewProgramContext(cmd exec.Cmd, stderr string) ProgramContext {
